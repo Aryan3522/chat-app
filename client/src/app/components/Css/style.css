@@ -1,0 +1,37 @@
+
+#UserSidebar{
+    width: 25%;
+}
+
+#Chat{
+    width: 80%;
+}
+
+/* #HomeChat{
+    width: 80%; 
+    height: 100vh; 
+    background-color: black 
+} */
+
+
+
+
+
+@media (max-width:480px) {
+    #UserSidebar{
+        width: 100%;
+        background-color: rgba(202, 22, 22, 0.48);
+    }
+
+    #Chat{
+       /* visibility: hidden; */
+       display: block;
+       background-color: blanchedalmond;
+    }
+
+    #HomeChat{
+          /* visibility: hidden; */
+          display: block;
+          background-color: blueviolet;
+    }
+}
