@@ -149,13 +149,18 @@ export const UserSidebar = ({ setShowchats }) => {
       </div>
 
       <div>
-        {!isDataLoaded ? <div className="d-flex justify-content-center  align-items-center"
-          style={{
-            flex: 1,
-            overflowY: "auto",
-            padding: "1rem",
-            backgroundColor: "transparent"
-          }}><Loading /></div> : (UserSidebarData.filteredUser || UserSidebarData.SearchedUser.length > 0) ? (UserSidebarData.filteredUser || UserSidebarData.SearchedUser)?.map((user, id) => (
+        {!isDataLoaded ?
+          <div className="d-flex justify-content-center  align-items-center"
+            style={{
+              flex: 1,
+              overflowY: "auto",
+              padding: "1rem",
+              backgroundColor: "transparent"
+            }}>
+            <Loading />
+          </div>
+          :
+          (UserSidebarData?.filteredUser || UserSidebarData?.SearchedUser?.length > 0) ? (UserSidebarData?.filteredUser || UserSidebarData?.SearchedUser)?.map((user, id) => (
             <div
               key={id}
               className={`d-flex align-items-center p-3 mt-2 cursor-pointer w-[363px] mb-2 rounded-md
@@ -163,7 +168,6 @@ export const UserSidebar = ({ setShowchats }) => {
         hover:bg-gray-800 transition duration-300`}
               onClick={() => ReciverDataHandler(AuthData, user, id)}
             >
-
               <div className="position-relative">
                 <img
                   src={
