@@ -40,7 +40,7 @@ export const SignIn = ({ setMode }) => {
         }
 
         if (logindata?.status === 200) {
-          toast.info("login successful",{
+          toast.info("login successful", {
             position: 'top-center',
             autoClose: 5000,
             hideProgressBar: false,
@@ -80,14 +80,13 @@ export const SignIn = ({ setMode }) => {
       className="flex justify-center align-items-center"
       style={{ height: '100%' }}
     >
-    <div className='flex justify-items-center items-center mr-5'
-    style={{width:"600px",height:"48vh"}}>
-        <h1 className='text-slate-900 font-bold self-center' style={{fontSize:"40px"}}>"Ready to chat? Log in to pick up where you left off."</h1>
-    </div>
+      <div className='flex justify-items-center items-center mr-5'
+        style={{ width: "600px", height: "48vh" }}>
+        <h1 className='text-slate-900 font-bold self-center' style={{ fontSize: "40px" }}>"Ready to chat? Log in to pick up where you left off."</h1>
+      </div>
 
-    <div
-        className="bg-slate-200 rounded-lg flex flex-col items-center justify-items-center shadow-lg"
-        style={{width:"450px",height:"50vh"}}
+      <div
+        className="bg-slate-200 p-8 rounded-lg flex flex-col items-center justify-items-center shadow-lg"
       >
         <h5
           className="text-slate-900 text-2xl font-bold mt-6"
@@ -108,7 +107,7 @@ export const SignIn = ({ setMode }) => {
                 borderRadius: '6px',
                 backgroundColor: '#e6e6e6',
                 width: '300px',
-                height:"45px"
+                height: "45px"
               }}
             />
           </div>
@@ -125,36 +124,41 @@ export const SignIn = ({ setMode }) => {
                 borderRadius: '6px',
                 backgroundColor: '#e6e6e6',
                 width: '300px',
-                height:"45px",
+                height: "45px",
               }}
             />
           </div>
           <button
-          className="text-red-500 mt-1 grid justify-self-end hover:underline"
-          onClick={() => {
-            setMode('ForgotPass');
-          }}
-        >
-          Forgot Password
-        </button>
+            className="text-red-500 mt-1 grid justify-self-end hover:underline"
+            onClick={() => {
+              setMode('ForgotPass');
+            }}
+          >
+            Forgot Password?
+          </button>
           <br />
           <button
             type="submit"
             className="bg-teal-950 w-40 h-12 text-white mt-1 rounded-sm hover:bg-teal-900"
-            style={{ borderRadius: '10px', width: '160px',marginLeft:"60px"}}
+            style={{ borderRadius: '10px', width: '160px', marginLeft: "60px" }}
           >
             Signin!
           </button>
           <br />
         </form>
-        <button
-          className="text-teal-900 mt-4 hover:underline"
-          onClick={() => {
-            setMode('signup');
-          }}
-        >
-          Don't Have An Account? Signup!
-        </button>
+        <div className='flex items-center justify-center gap-2 mt-4'>
+          <p>
+            Don't Have An Account?
+          </p>
+          <button
+            className="text-teal-900 hover:underline"
+            onClick={() => {
+              setMode('signup');
+            }}
+          >
+            Signup!
+          </button>
+        </div>
         <br />
       </div>
     </div>

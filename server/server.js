@@ -11,7 +11,7 @@ const profileRouter = require("./routes/profile")
 const OTPRouter = require("./routes/OTP")
 const filerouter = require("./routes/file")
 const userRouter = require("./routes/user")
-dotenv.config({path:"./Config/config.env"})
+dotenv.config({path:"./.env"})
 app.use(
   cors({
     origin:process.env.CORS_PORT||"http://localhost:3000", 
