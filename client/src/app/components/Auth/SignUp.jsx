@@ -30,10 +30,10 @@ export const SignUp = ({ setMode }) => {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
-        <div className='flex justify-items-center items-center mr-5'
-    style={{width:"600px",height:"48vh"}}>
-        <h1 className='text-slate-900 font-bold self-center' style={{fontSize:"40px"}}>"Join the conversation. Create your account today."</h1>
-    </div>
+      <div className='flex justify-items-center items-center mr-5'
+        style={{ width: "600px", height: "48vh" }}>
+        <h1 className='text-slate-900 font-bold self-center' style={{ fontSize: "40px" }}>"Join the conversation. Create your account today."</h1>
+      </div>
       <div className="bg-slate-200 p-8 rounded-2xl shadow-lg w-full max-w-md">
         <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">Sign Up</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -47,7 +47,7 @@ export const SignUp = ({ setMode }) => {
             />
           ))}
 
-<label className="block text-gray-700">Profile Picture</label>
+          <label className="block text-gray-700">Profile Picture</label>
           <div className="border-2 border-teal-300 border-dashed p-4 rounded-lg text-center cursor-pointer hover:border-teal-500">
             <input
               type="file"
@@ -67,7 +67,17 @@ export const SignUp = ({ setMode }) => {
 
           <button type="submit" className="w-full py-3 bg-teal-600 text-white rounded-lg hover:bg-teal-700">Sign Up</button>
         </form>
-        <button onClick={() => setMode('signin')} className="mt-4 w-full text-teal-600 hover:underline">Already have an account? Sign In</button>
+        <div className='flex items-center justify-center gap-2 mt-4'>
+          <p>
+            Already have an account?
+          </p>
+          <button
+            className="text-teal-900 hover:underline"
+            onClick={() => setMode('signin')}
+          >
+            Sign In!
+          </button>
+        </div>
       </div>
     </div>
   );
