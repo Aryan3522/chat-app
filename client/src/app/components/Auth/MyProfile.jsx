@@ -76,17 +76,19 @@ export const MyProfile = () => {
     getUserprofile(UserData)
   }, [])
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4">
+    <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4 py-10">
 
       {/* Profile Card */}
       <div className="w-full max-w-md bg-white rounded-xl shadow-xl p-8 text-center">
 
+        {/* Profile Image */}
         <img
           src={userProfile.ProfilePicture || "https://via.placeholder.com/200"}
           alt="Profile"
           className="w-40 h-40 mx-auto rounded-md object-cover shadow-md"
         />
 
+        {/* User Info */}
         <h2 className="mt-6 text-2xl font-semibold text-gray-800">
           {userProfile.username}
         </h2>
@@ -96,24 +98,24 @@ export const MyProfile = () => {
         </p>
 
         {/* Primary Actions */}
-        <div className="mt-6 flex flex-col gap-3">
+        <div className="mt-6 grid grid-cols-2 gap-3">
 
           <button
-            className="w-full py-2 rounded-lg bg-blue-600 text-black font-medium hover:bg-blue-700 transition"
+            className="w-full py-2 rounded-lg bg-blue-600 text-black font-medium hover:bg-blue-700 transition border border-gray-300"
             onClick={() => setProfileModal(true)}
           >
             Update Profile
           </button>
 
           <button
-            className="w-full py-2 rounded-lg bg-gray-700 text-black font-medium hover:bg-gray-400 transition"
+            className="w-full py-2 rounded-lg bg-gray-700 text-black font-medium hover:bg-gray-400 transition border border-gray-300"
             onClick={() => router.push("/")}
           >
             Go to Home
           </button>
 
           <button
-            className="w-full py-2 rounded-lg bg-red-500 text-white font-medium hover:bg-red-600 transition"
+            className="w-full py-2 rounded-lg bg-red-500 text-white font-medium hover:bg-red-600 transition border border-red-600"
             onClick={() => handeldelete(UserData)}
           >
             Delete Profile
@@ -130,6 +132,7 @@ export const MyProfile = () => {
           </button>
 
         </div>
+
       </div>
 
       {/* Update Modal */}
@@ -138,10 +141,12 @@ export const MyProfile = () => {
 
           <div className="bg-white w-full max-w-md rounded-2xl shadow-2xl p-6">
 
+            {/* Modal Header */}
             <div className="flex justify-between items-center mb-6">
               <h3 className="text-lg font-semibold text-gray-800">
                 Update Profile
               </h3>
+
               <button
                 onClick={() => setProfileModal(false)}
                 className="text-gray-400 hover:text-gray-700 text-xl"
@@ -150,6 +155,7 @@ export const MyProfile = () => {
               </button>
             </div>
 
+            {/* Form */}
             <div className="space-y-4">
 
               <input
@@ -194,7 +200,9 @@ export const MyProfile = () => {
 
             </div>
 
+            {/* Modal Actions */}
             <div className="mt-6 flex justify-end gap-3">
+
               <button
                 className="px-4 py-2 rounded-lg border border-gray-300 text-gray-600 hover:bg-gray-100"
                 onClick={() => setProfileModal(false)}
@@ -211,6 +219,7 @@ export const MyProfile = () => {
               >
                 Save
               </button>
+
             </div>
 
           </div>
