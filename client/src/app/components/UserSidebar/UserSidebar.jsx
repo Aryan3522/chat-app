@@ -159,7 +159,7 @@ export const UserSidebar = ({ setShowchats }) => {
               backgroundColor: "#1e2235",
               border: "1px solid #2a3050",
             }}
-            onClick={() => router.push("/pages/Profile")}
+            onClick={() => router.push("/pages/profile")}
           />
         </div>
 
