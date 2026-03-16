@@ -42,7 +42,7 @@ export const HomeMain = () => {
         {Showchats ?
           <div
             className="d-flex flex-column justify-content-center align-items-center text-center"
-            style={{ width: "80%", height: "100vh", backgroundColor: "#121212", color: "#fff" }}
+            style={{ width: "100%", height: "100vh", backgroundColor: "#121212", color: "#fff" }}
           >
             <div style={{ maxWidth: "400px" }}>
 

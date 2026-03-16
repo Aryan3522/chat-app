@@ -106,95 +106,145 @@ export const UserSidebar = ({ setShowchats }) => {
 
   if (!mounted) {
     return (
-      <div style={{ width: "25%", height: "100vh", backgroundColor: "#0f111a" }} />
+      <div style={{ width: "25%", height: "100vh", backgroundColor: "#0f111a" }} >Please try again!</div>
     );
   }
   return (
     <div
-      className="d-flex flex-column border border-dark"
       style={{
-        width: "25%",
+        display: "flex",
+        flexDirection: "column",
+        width: "fit-content",
+        minWidth: "15%",
+        maxWidth: "25%",
         height: "100vh",
         overflowY: "scroll",
+        overflowX: "hidden",
         backgroundColor: "#0f111a",
         color: "white",
         scrollbarWidth: "none",
+        borderRight: "1px solid #1e2235",
+        flexShrink: 0,
       }}
     >
-      <div className="flex flex-col justify-content-between" style={{ padding: "1rem", backgroundColor: "#090e19" }}>
-        <div className="flex justify-content-between"><h2 className="text-white font-medium" style={{ color: "#FFFFFF", fontSize: "35px" }}>Chats</h2>
+      {/* Header */}
+      <div
+        style={{
+          padding: "1rem",
+          backgroundColor: "#090e19",
+          position: "sticky",
+          top: 0,
+          zIndex: 10,
+        }}
+      >
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <h2 style={{ color: "#FFFFFF", fontSize: "28px", fontWeight: 500, margin: 0 }}>
+            Chats
+          </h2>
           <img
             src={
               mounted && AuthData?.ProfilePicture
                 ? AuthData.ProfilePicture
-                : "https://via.placeholder.com/30"
+                : "https://api.dicebear.com/7.x/thumbs/svg?seed=default"
             }
             alt="Profile"
-            className="rounded-circle w-12 h-12"
-            style={{ marginRight: "1rem", cursor: "pointer" }}
-            onClick={() => {
-              router.push("/pages/Profile")
+            style={{
+              width: "48px",
+              height: "48px",
+              minWidth: "48px",
+              minHeight: "48px",
+              borderRadius: "50%",
+              objectFit: "cover",
+              cursor: "pointer",
+              backgroundColor: "#1e2235",
+              border: "1px solid #2a3050",
             }}
-          /></div>
-
-        <div>
-          <input
-            className="mt-2 w-full p-2 rounded-md text-white border-none focus:outline-white"
-            type="text"
-            placeholder="Search users..."
-            onChange={(e) => SetSearchData({ searchD: e.target.value })}
-            style={{ backgroundColor: "black", caretColor: "white" }}
+            onClick={() => router.push("/pages/Profile")}
           />
         </div>
+
+        <input
+          type="text"
+          placeholder="Search users..."
+          onChange={(e) => SetSearchData({ searchD: e.target.value })}
+          style={{
+            marginTop: "0.75rem",
+            width: "100%",
+            padding: "0.5rem 0.75rem",
+            borderRadius: "6px",
+            backgroundColor: "#0a0c15",
+            border: "1px solid #1e2235",
+            color: "white",
+            caretColor: "white",
+            outline: "none",
+            boxSizing: "border-box",
+            fontSize: "14px",
+          }}
+        />
       </div>
 
-      <div>
-        {!isDataLoaded ?
-          <div className="d-flex justify-content-center  align-items-center"
-            style={{
-              flex: 1,
-              overflowY: "auto",
-              padding: "1rem",
-              backgroundColor: "transparent"
-            }}>
+      {/* User List */}
+      <div style={{ padding: "0.5rem 0.75rem", flexGrow: 1 }}>
+        {!isDataLoaded ? (
+          <div style={{ display: "flex", justifyContent: "center", padding: "2rem 0" }}>
             <Loading />
           </div>
-          :
-          (UserSidebarData?.filteredUser || UserSidebarData?.SearchedUser?.length > 0) ? (UserSidebarData?.filteredUser || UserSidebarData?.SearchedUser)?.map((user, id) => (
+        ) : (UserSidebarData?.filteredUser || UserSidebarData?.SearchedUser?.length > 0) ? (
+          (UserSidebarData?.filteredUser || UserSidebarData?.SearchedUser)?.map((user, id) => (
             <div
               key={id}
-              className={`d-flex align-items-center p-3 mt-2 cursor-pointer w-[363px] mb-2 rounded-md
-        ${hover === id ? 'bg-gray-800 shadow-lg border-2 border-black' : 'bg'} 
-        hover:bg-gray-800 transition duration-300`}
               onClick={() => ReciverDataHandler(AuthData, user, id)}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "0.75rem",
+                padding: "0.6rem 0.75rem",
+                marginBottom: "0.4rem",
+                borderRadius: "8px",
+                border: "1px solid #f5f5f510",
+                cursor: "pointer",
+                backgroundColor: hover === id ? "#1a1f2e" : "transparent",
+                transition: "background-color 0.2s ease",
+                whiteSpace: "nowrap",
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = "#1a1f2e"}
+              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = hover === id ? "#1a1f2e" : "transparent"}
             >
-              <div className="position-relative">
+              <div style={{ position: "relative", flexShrink: 0 }}>
                 <img
                   src={
-                    mounted && AuthData?.ProfilePicture
-                      ? AuthData.ProfilePicture
-                      : "https://via.placeholder.com/30"
+                    mounted && user?.ProfilePicture
+                      ? user.ProfilePicture
+                      : "https://via.placeholder.com/40"
                   }
                   alt="Profile"
-                  className="rounded-circle w-12 h-12"
-                  style={{ marginRight: "1rem" }}
+                  style={{ width: 40, height: 40, borderRadius: "50%", display: "block", backgroundColor: "#f5f5f540" }}
                 />
                 {onlineUsers.includes(user?._id) && (
                   <span
-                    className="position-absolute bg-success rounded-circle border border-white"
                     style={{
-                      width: "12px",
-                      height: "12px",
-                      bottom: "0",
-                      right: "15px",
+                      position: "absolute",
+                      width: 10,
+                      height: 10,
+                      backgroundColor: "#22c55e",
+                      borderRadius: "50%",
+                      border: "2px solid #0f111a",
+                      bottom: 0,
+                      right: 0,
                     }}
-                  ></span>
+                  />
                 )}
               </div>
-
-              <h4 className="text-white text-xl font-bold">{user.username}</h4>
+              <span style={{ color: "white", fontSize: "15px", fontWeight: 600 }}>
+                {user.username}
+              </span>
             </div>
-          )) : <p className="text-white text-center mt-4">No users found</p>}
+          ))
+        ) : (
+          <p style={{ color: "#aaa", textAlign: "center", marginTop: "2rem", fontSize: "14px" }}>
+            No users found
+          </p>
+        )}
       </div>
     </div>
   );

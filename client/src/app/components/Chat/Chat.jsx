@@ -28,9 +28,17 @@ export const Chat = () => {
   const reciverIdRef = useRef(reciverData._id);
   // console.log(MessageData.messages);
 
+  const messagesEndRef = useRef(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({
+      behavior: "smooth",
+    });
+  };
+
   async function SendMessageHandler() {
     console.log(Data);
-    
+
     try {
       if (Data.text !== "" && Data.image !== "") {
         const reciverstatus = onlineUsers.includes(reciverIdRef.current);
@@ -87,6 +95,15 @@ export const Chat = () => {
       reciveby: reciverIdRef.current,
     });
   }, [MessageData]);
+  useEffect(() => {
+    scrollToBottom();
+
+    MsgStatus(AuthData, {
+      sendby: AuthData.userId,
+      status: "seen",
+      reciveby: reciverIdRef.current,
+    });
+  }, [MessageData]);
 
   useEffect(() => {
     if (socket) {
@@ -137,7 +154,7 @@ export const Chat = () => {
       <div
         className="flex flex-col"
         style={{
-          width: "80%",
+          width: "100%",
           height: "100vh",
           backgroundColor: "#0b101d",
           backgroundSize: "cover",
@@ -166,8 +183,12 @@ export const Chat = () => {
                 reciverData?.ProfilePicture || "https://via.placeholder.com/30"
               }
               alt="Profile"
-              className="rounded-circle w-12 h-12"
-              style={{ marginRight: "1rem" }}
+              className="rounded-circle w-12 h-12 "
+              style={{
+                marginRight: "1rem",
+                backgroundColor: "#f5f5f510",
+                border: "1px solid #f5f5f501"
+              }}
             />
             <div>
               <h4
@@ -211,17 +232,18 @@ export const Chat = () => {
                 const previousDate =
                   i > 0
                     ? new Date(
-                        MessageData.messages[i - 1].createdAt
-                      ).toLocaleDateString("en-US", {
-                        year: "numeric",
-                        month: "numeric",
-                        day: "numeric",
-                      })
+                      MessageData.messages[i - 1].createdAt
+                    ).toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "numeric",
+                      day: "numeric",
+                    })
                     : null;
 
                 const isNewDay = currentDate !== previousDate;
                 return (
-                  <div key={i} ref={lastMsgRef}>
+                  // <div key={i} ref={lastMsgRef}>
+                  <div key={i}>
                     {isNewDay && (
                       <div
                         className="d-flex justify-content-center align-items-center"
@@ -236,33 +258,31 @@ export const Chat = () => {
                           }}
                         >
                           {currentDate ===
-                          new Date().toLocaleDateString("en-US")
+                            new Date().toLocaleDateString("en-US")
                             ? "Today"
                             : currentDate ===
                               new Date(
                                 Date.now() - 86400000
                               ).toLocaleDateString("en-US")
-                            ? "Yesterday"
-                            : currentDate}
+                              ? "Yesterday"
+                              : currentDate}
                         </p>
                       </div>
                     )}
 
                     <div
-                      className={`d-flex ${
-                        ele.senderId === reciverData._id
-                          ? "justify-content-start"
-                          : "justify-content-end"
-                      }`}
+                      className={`d-flex ${ele.senderId === reciverData._id
+                        ? "justify-content-start"
+                        : "justify-content-end"
+                        }`}
                       style={{ padding: "0px 50px 10px 50px" }}
                     >
                       <img
-                        src={`${
-                          (ele.senderId === reciverData._id
-                            ? reciverData.ProfilePicture
-                            : AuthData.ProfilePicture) ||
+                        src={`${(ele.senderId === reciverData._id
+                          ? reciverData.ProfilePicture
+                          : AuthData.ProfilePicture) ||
                           "https://via.placeholder.com/30"
-                        }`}
+                          }`}
                         alt="Profile"
                         className="rounded-circle w-12 h-12"
                         style={{ marginRight: "1rem" }}
@@ -375,6 +395,7 @@ export const Chat = () => {
                         </div>
                       </div>
                     </div>
+                    <div ref={messagesEndRef}></div>
                   </div>
                 );
               })
@@ -392,7 +413,7 @@ export const Chat = () => {
             backgroundColor: "#1F1F1F",
           }}
         >
-          {/* {chosenEmoji && (
+          {chosenEmoji && (
             <div
               style={{ position: "absolute", bottom: "70px", zIndex: "1000" }}
             >
@@ -414,7 +435,7 @@ export const Chat = () => {
                 Close
               </button>
             </div>
-          )} */}
+          )}
 
           <div className=" cursor-pointer w-10 h-11 d-flex align-items-center justify-content-center rounded-sm  hover:bg-black">
             <svg
@@ -436,7 +457,7 @@ export const Chat = () => {
           <div className=" cursor-pointer w-10 h-11 d-flex align-items-center justify-content-center rounded-sm  hover:bg-black">
             <label htmlFor="file-upload" className="custom-file-upload">
               <svg
-              style={{cursor:"pointer"}}
+                style={{ cursor: "pointer" }}
                 xmlns="http://www.w3.org/2000/svg"
                 width="20"
                 height="18"
@@ -463,94 +484,94 @@ export const Chat = () => {
             }}
           />
           {ShowImage && (
-             <div
-             style={{
-               position: "absolute",
-               bottom: "60px",
-               left: "35%",
-               transform: "translateX(-50%)",
-               backgroundColor: "#202c33",
-               padding: "10px",
-               borderRadius: "10px",
-               display: "flex",
-               flexDirection: "column",
-               alignItems: "center",
-               boxShadow: "0 4px 10px rgba(0, 0, 0, 0.3)",
-             }}
-           >
-             <img
-               src={Data.image}
-               alt="Sent"
-               style={{
-                 maxWidth: "250px",
-                 borderRadius: "8px",
-               }}
-             />
+            <div
+              style={{
+                position: "absolute",
+                bottom: "60px",
+                left: "35%",
+                transform: "translateX(-50%)",
+                backgroundColor: "#202c33",
+                padding: "10px",
+                borderRadius: "10px",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                boxShadow: "0 4px 10px rgba(0, 0, 0, 0.3)",
+              }}
+            >
+              <img
+                src={Data.image}
+                alt="Sent"
+                style={{
+                  maxWidth: "250px",
+                  borderRadius: "8px",
+                }}
+              />
               <textarea
-            className="bg-neutral-800 mt-2 hover:bg-neutral-700"
-            value={Data.text}
-            placeholder="Caption (Optional)"
-            style={{
-              width: "100%",
-              height: "40px",
-              paddingLeft: "20px",
-              paddingTop: "8px",
-              color: "white",
-              scrollbarWidth: "none",
-              border: "none",
-              outline: "none",
-            }}
-            onChange={(e) => {
-              SetData((prev) => ({ ...prev, text: e.target.value }));
-              
-            }}
-          ></textarea>
-             <div style={{ display: "flex", justifyContent: "space-between", width: "100%", marginTop: "5px" }}>
-               <button
-                 style={{
-                   padding: "6px 12px",
-                   backgroundColor: "#ff3b30",
-                   color: "white",
-                   border: "none",
-                   cursor: "pointer",
-                   borderRadius: "5px",
-                   display: "flex",
-                   alignItems: "center",
-                   gap: "5px",
-                 }}
-                 onClick={() => {
-                   SetData((prev) => ({ ...prev, image: "" }));
-                   SetShowImage(false);
-                 }}
-               >
+                className="bg-neutral-800 mt-2 hover:bg-neutral-700"
+                value={Data.text}
+                placeholder="Caption (Optional)"
+                style={{
+                  width: "100%",
+                  height: "40px",
+                  paddingLeft: "20px",
+                  paddingTop: "8px",
+                  color: "white",
+                  scrollbarWidth: "none",
+                  border: "none",
+                  outline: "none",
+                }}
+                onChange={(e) => {
+                  SetData((prev) => ({ ...prev, text: e.target.value }));
+
+                }}
+              ></textarea>
+              <div style={{ display: "flex", justifyContent: "space-between", width: "100%", marginTop: "5px" }}>
+                <button
+                  style={{
+                    padding: "6px 12px",
+                    backgroundColor: "#ff3b30",
+                    color: "white",
+                    border: "none",
+                    cursor: "pointer",
+                    borderRadius: "5px",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "5px",
+                  }}
+                  onClick={() => {
+                    SetData((prev) => ({ ...prev, image: "" }));
+                    SetShowImage(false);
+                  }}
+                >
                   Cancel
-               </button>
-               <IoSendOutline
-            className="d-flex justify-content-center align-items-center"
-            style={{
-              color: "white",
-              fontSize: "24px",
-              cursor: "pointer",
-              width: "50px",
-              height: "35px",
-              borderRadius: "8px",
-              transition: "background-color 0.3s, transform 0.2s",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = "rgba(0, 0, 0, 0.65)";
-              e.currentTarget.style.transform = "scale(1.1)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = "transparent";
-              e.currentTarget.style.transform = "scale(1)";
-            }}
-            onClick={()=>{
-              SendMessageHandler()
-              SetShowImage(false)
-            }}
-          />
-             </div>
-           </div>
+                </button>
+                <IoSendOutline
+                  className="d-flex justify-content-center align-items-center"
+                  style={{
+                    color: "white",
+                    fontSize: "24px",
+                    cursor: "pointer",
+                    width: "50px",
+                    height: "35px",
+                    borderRadius: "8px",
+                    transition: "background-color 0.3s, transform 0.2s",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = "rgba(0, 0, 0, 0.65)";
+                    e.currentTarget.style.transform = "scale(1.1)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = "transparent";
+                    e.currentTarget.style.transform = "scale(1)";
+                  }}
+                  onClick={() => {
+                    SendMessageHandler()
+                    SetShowImage(false)
+                  }}
+                />
+              </div>
+            </div>
           )}
           <textarea
             className="bg-neutral-800 hover:bg-neutral-700"
