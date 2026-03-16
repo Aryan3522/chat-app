@@ -32,7 +32,7 @@ export const MyProfile = () => {
       })
 
       if (status == 200) {
-        console.log("kk");
+        console.log("Status ok");
 
         await getUserprofile(authdata)
 
@@ -65,7 +65,7 @@ export const MyProfile = () => {
           theme: 'light',
           transition: Bounce,
         })
-        router.push("/pages/Auth")
+        router.push("/pages/auth")
       }
     } catch (error) {
       console.log(error);

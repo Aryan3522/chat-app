@@ -36,7 +36,7 @@ const Navbar = () => {
       />
       <ul className="list">
         <li><button onClick={()=>{
-          router.push("/pages/Profile")
+          router.push("/pages/profile")
         }}>Profile</button></li>
         <li className='mt-2'><button onClick={()=>{
           Authdispatch({

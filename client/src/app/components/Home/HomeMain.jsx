@@ -15,7 +15,7 @@ export const HomeMain = () => {
   useSocket()
   useEffect(() => {
     if (!AuthData?.token) {
-      router.push("/pages/Auth")
+      router.push("/pages/auth")
     }
 
   }, [AuthData])
